@@ -1726,32 +1726,33 @@ const assignDoctorToRoom = async (req, res, next) => {
       );
     }
 
-    // 11. Create recurring doctor-room assignment.
    
-    // Consultation starts at the same time as OPD.
-    const [assignmentResult] = await connection.query(
-      `
-      INSERT INTO doctor_room_assignments
-      (
-        doctor_id,
-        room_id,
-        assignment_date,
-        start_time,
-        end_time,
-        is_active,
-        is_recurring
-      )
-      VALUES (?, ?, ?, ?, ?, ?, TRUE, TRUE)
-      `,
-      [
-        doctorId,
-        roomId,
-        effectiveDate,
-        startTime,
-        startTime,
-        endTime,
-      ],
-    );
+// Consultation starts at the same time as OPD.
+const [assignmentResult] = await connection.query(
+  `
+    INSERT INTO doctor_room_assignments
+    (
+      doctor_id,
+      room_id,
+      assignment_date,
+      start_time,
+      consultation_start_time,
+      end_time,
+      is_active,
+      is_recurring
+    )
+    VALUES (?, ?, ?, ?, ?, ?, TRUE, TRUE)
+  `,
+  [
+    doctorId,
+    roomId,
+    effectiveDate,
+    startTime,
+    startTime,
+    endTime,
+  ],
+);
+
 
     // Do not create an OPD session here.
     // The scheduler creates sessions on the doctor's active working days.
