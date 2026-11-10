@@ -23,7 +23,7 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS
   : [
       "http://localhost:3000",
       "http://localhost:3001",
-      "https://chc-frontend-uipe.vercel.app",
+      "https://chc-frontend-umber.vercel.app",
     ];
 
 const corsOptions = {
